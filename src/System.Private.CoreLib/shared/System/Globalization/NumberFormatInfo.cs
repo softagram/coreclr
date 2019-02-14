@@ -4,6 +4,35 @@
 
 namespace System.Globalization
 {
+    /// <remarks>
+    /// Property             Default Description
+    /// PositiveSign           '+'   Character used to indicate positive values.
+    /// NegativeSign           '-'   Character used to indicate negative values.
+    /// NumberDecimalSeparator '.'   The character used as the decimal separator.
+    /// NumberGroupSeparator   ','   The character used to separate groups of
+    ///                              digits to the left of the decimal point.
+    /// NumberDecimalDigits    2     The default number of decimal places.
+    /// NumberGroupSizes       3     The number of digits in each group to the
+    ///                              left of the decimal point.
+    /// NaNSymbol             "NaN"  The string used to represent NaN values.
+    /// PositiveInfinitySymbol"Infinity" The string used to represent positive
+    ///                              infinities.
+    /// NegativeInfinitySymbol"-Infinity" The string used to represent negative
+    ///                              infinities.
+    ///
+    /// Property                  Default  Description
+    /// CurrencyDecimalSeparator  '.'      The character used as the decimal
+    ///                                    separator.
+    /// CurrencyGroupSeparator    ','      The character used to separate groups
+    ///                                    of digits to the left of the decimal
+    ///                                    point.
+    /// CurrencyDecimalDigits     2        The default number of decimal places.
+    /// CurrencyGroupSizes        3        The number of digits in each group to
+    ///                                    the left of the decimal point.
+    /// CurrencyPositivePattern   0        The format of positive values.
+    /// CurrencyNegativePattern   0        The format of negative values.
+    /// CurrencySymbol            "$"      String used as local monetary symbol.
+    /// </remarks>
     public sealed class NumberFormatInfo : IFormatProvider, ICloneable
     {
         private static volatile NumberFormatInfo s_invariantInfo;
@@ -17,7 +46,7 @@ namespace System.Globalization
         internal string _numberGroupSeparator = ",";
         internal string _currencyGroupSeparator = ",";
         internal string _currencyDecimalSeparator = ".";
-        internal string currencySymbol = "\x00a4";  // U+00a4 is the symbol for International Monetary Fund.
+        internal string _currencySymbol = "\x00a4";  // U+00a4 is the symbol for International Monetary Fund.
         internal string _nanSymbol = "NaN";
         internal string _positiveInfinitySymbol = "Infinity";
         internal string _negativeInfinitySymbol = "-Infinity";
@@ -31,11 +60,11 @@ namespace System.Globalization
 
         internal int _numberDecimalDigits = 2;
         internal int _currencyDecimalDigits = 2;
-        internal int currencyPositivePattern = 0;
+        internal int _currencyPositivePattern = 0;
         internal int _currencyNegativePattern = 0;
         internal int _numberNegativePattern = 1;
         internal int _percentPositivePattern = 0;
-        internal int percentNegativePattern = 0;
+        internal int _percentNegativePattern = 0;
         internal int _percentDecimalDigits = 2;
 
         internal int _digitSubstitution = (int)DigitShapes.None;
@@ -329,7 +358,7 @@ namespace System.Globalization
 
         public string CurrencySymbol
         {
-            get => currencySymbol;
+            get => _currencySymbol;
             set
             {
                 if (value == null)
@@ -338,7 +367,7 @@ namespace System.Globalization
                 }
 
                 VerifyWritable();
-                currencySymbol = value;
+                _currencySymbol = value;
             }
         }
 
@@ -396,7 +425,6 @@ namespace System.Globalization
             }
         }
 
-
         public int NumberNegativePattern
         {
             get => _numberNegativePattern;
@@ -435,10 +463,9 @@ namespace System.Globalization
             }
         }
 
-
         public int PercentNegativePattern
         {
-            get => percentNegativePattern;
+            get => _percentNegativePattern;
             set
             {
                 // NOTENOTE: the range of value should correspond to posPercentFormats[] in vm\COMNumber.cpp.
@@ -451,10 +478,9 @@ namespace System.Globalization
                 }
 
                 VerifyWritable();
-                percentNegativePattern = value;
+                _percentNegativePattern = value;
             }
         }
-
 
         public string NegativeInfinitySymbol
         {
@@ -471,7 +497,6 @@ namespace System.Globalization
             }
         }
 
-
         public string NegativeSign
         {
             get => _negativeSign;
@@ -487,7 +512,6 @@ namespace System.Globalization
                 UpdateHasInvariantNumberSigns();
             }
         }
-
 
         public int NumberDecimalDigits
         {
@@ -507,7 +531,6 @@ namespace System.Globalization
             }
         }
 
-
         public string NumberDecimalSeparator
         {
             get => _numberDecimalSeparator;
@@ -518,7 +541,6 @@ namespace System.Globalization
                 _numberDecimalSeparator = value;
             }
         }
-
 
         public string NumberGroupSeparator
         {
@@ -531,10 +553,9 @@ namespace System.Globalization
             }
         }
 
-
         public int CurrencyPositivePattern
         {
-            get => currencyPositivePattern;
+            get => _currencyPositivePattern;
             set
             {
                 if (value < 0 || value > 3)
@@ -546,10 +567,9 @@ namespace System.Globalization
                 }
 
                 VerifyWritable();
-                currencyPositivePattern = value;
+                _currencyPositivePattern = value;
             }
         }
-
 
         public string PositiveInfinitySymbol
         {
@@ -566,7 +586,6 @@ namespace System.Globalization
             }
         }
 
-
         public string PositiveSign
         {
             get => _positiveSign;
@@ -582,7 +601,6 @@ namespace System.Globalization
                 UpdateHasInvariantNumberSigns();
             }
         }
-
 
         public int PercentDecimalDigits
         {

@@ -21,7 +21,7 @@ namespace System.Globalization
 
         public StringInfo(string value)
         {
-            String = value;
+            this.String = value;
         }
 
         public override bool Equals(object value)

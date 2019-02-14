@@ -66,9 +66,9 @@ namespace System.Globalization
 
             int result;
             string realNameBuffer = _sRealName;
-            char* pBuffer = stackalloc char[LOCALE_NAME_MAX_LENGTH];
+            char* pBuffer = stackalloc char[LocaleNameMaxLength];
 
-            result = GetLocaleInfoEx(realNameBuffer, LOCALE_SNAME, pBuffer, LOCALE_NAME_MAX_LENGTH);
+            result = GetLocaleInfoEx(realNameBuffer, LOCALE_SNAME, pBuffer, LocaleNameMaxLength);
 
             // Did it fail?
             if (result == 0)
@@ -110,7 +110,7 @@ namespace System.Globalization
 
                 // Specific locale name is whatever ResolveLocaleName (win7+) returns.
                 // (Buffer has our name in it, and we can recycle that because windows resolves it before writing to the buffer)
-                result = Interop.Kernel32.ResolveLocaleName(realNameBuffer, pBuffer, LOCALE_NAME_MAX_LENGTH);
+                result = Interop.Kernel32.ResolveLocaleName(realNameBuffer, pBuffer, LocaleNameMaxLength);
 
                 // 0 is failure, 1 is invariant (""), which we expect
                 if (result < 1)
@@ -308,7 +308,7 @@ namespace System.Globalization
                 ((ci = GetUserDefaultCulture()) != null) &&
                 !CultureInfo.DefaultThreadCurrentUICulture.Name.Equals(ci.Name))
             {
-                return SNATIVEDISPLAYNAME;
+                return NativeName;
             }
             else
             {
@@ -329,7 +329,7 @@ namespace System.Globalization
                 return GetLocaleInfo(LocaleStringData.LocalizedCountryName);
             }
 
-            return SNATIVECOUNTRY;
+            return NativeCountryName;
 #endif // ENABLE_WINRT
         }
 
