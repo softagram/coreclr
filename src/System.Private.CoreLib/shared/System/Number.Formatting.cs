@@ -1878,7 +1878,7 @@ namespace System
                     // The max is not bound since you can have formatting strings of the form "000,000..", and this
                     // should handle that case too.
 
-                    int[] groupDigits = info.numberGroupSizes;
+                    int[] groupDigits = info._numberGroupSizes;
 
                     int groupSizeIndex = 0;     // Index into the groupDigits array.
                     int groupTotalSizeCount = 0;
@@ -2086,7 +2086,7 @@ namespace System
                 switch (ch)
                 {
                     case '#':
-                        FormatFixed(ref sb, ref number, nMaxDigits, info, info.currencyGroupSizes, info.CurrencyDecimalSeparator, info.CurrencyGroupSeparator);
+                        FormatFixed(ref sb, ref number, nMaxDigits, info, info._currencyGroupSizes, info.CurrencyDecimalSeparator, info.CurrencyGroupSeparator);
                         break;
                     case '-':
                         sb.Append(info.NegativeSign);
@@ -2214,7 +2214,7 @@ namespace System
                 switch (ch)
                 {
                     case '#':
-                        FormatFixed(ref sb, ref number, nMaxDigits, info, info.numberGroupSizes, info.NumberDecimalSeparator, info.NumberGroupSeparator);
+                        FormatFixed(ref sb, ref number, nMaxDigits, info, info._numberGroupSizes, info.NumberDecimalSeparator, info.NumberGroupSeparator);
                         break;
                     case '-':
                         sb.Append(info.NegativeSign);
@@ -2321,7 +2321,7 @@ namespace System
                 switch (ch)
                 {
                     case '#':
-                        FormatFixed(ref sb, ref number, nMaxDigits, info, info.percentGroupSizes, info.PercentDecimalSeparator, info.PercentGroupSeparator);
+                        FormatFixed(ref sb, ref number, nMaxDigits, info, info._percentGroupSizes, info.PercentDecimalSeparator, info.PercentGroupSeparator);
                         break;
                     case '-':
                         sb.Append(info.NegativeSign);
