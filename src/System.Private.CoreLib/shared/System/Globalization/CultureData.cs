@@ -700,7 +700,7 @@ namespace System.Globalization
             culture._sRealName = cultureName;
 
             // Ask native code if that one's real
-            if (!culture.InitCultureData() || !culture.InitCompatibilityCultureData())
+            if (!culture.InitCultureData() && !culture.InitCompatibilityCultureData())
             {
                 return null;
             }
@@ -835,7 +835,7 @@ namespace System.Globalization
                     {
                         if (IsNeutralCulture)
                         {
-                            _sLocalizedDisplayName = NativeDisplayName;
+                            _sLocalizedDisplayName = NativeLanguageName;
                         }
                         else
                         {
@@ -873,7 +873,7 @@ namespace System.Globalization
                         // If its neutral use the language name
                         if (IsNeutralCulture)
                         {
-                            _sLocalizedDisplayName = LocalizedDisplayName;
+                            _sLocalizedDisplayName = LocalizedLanguageName;
                         }
                         else
                         {
@@ -964,7 +964,7 @@ namespace System.Globalization
                     // If its neutral use the language name
                     if (IsNeutralCulture)
                     {
-                        _sNativeDisplayName = NativeDisplayName;
+                        _sNativeDisplayName = NativeLanguageName;
                         // differentiate the legacy display names
                         switch (_sName)
                         {
@@ -984,7 +984,7 @@ namespace System.Globalization
                         if (string.IsNullOrEmpty(_sNativeDisplayName))
                         {
                             // These should primarily be "Deutsch (Deutschland)" type names
-                            _sNativeDisplayName = NativeDisplayName + " (" + NativeCountryName + ")";
+                            _sNativeDisplayName = NativeLanguageName + " (" + NativeCountryName + ")";
                         }
                     }
                 }
@@ -1054,7 +1054,7 @@ namespace System.Globalization
         /// Localized name for this language (Windows Only) ie: Inglis
         /// This is only valid for Windows 8 and higher neutrals:
         /// </summary>
-        private string LocalizedDisplayName
+        private string LocalizedLanguageName
         {
             get
             {
@@ -1068,7 +1068,7 @@ namespace System.Globalization
                         ((ci = GetUserDefaultCulture()) != null) &&
                         !CultureInfo.DefaultThreadCurrentUICulture.Name.Equals(ci.Name))
                     {
-                        _sLocalizedLanguage = NativeDisplayName;
+                        _sLocalizedLanguage = NativeLanguageName;
                     }
                     else
                     {
@@ -1098,7 +1098,7 @@ namespace System.Globalization
         /// <summary>
         /// Native name of this language (Windows Only) ie: Deutsch
         /// </summary>
-        private string NativeDisplayName
+        private string NativeLanguageName
         {
             get
             {

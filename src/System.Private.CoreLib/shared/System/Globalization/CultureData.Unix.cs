@@ -216,10 +216,7 @@ namespace System.Globalization
             return ConvertIcuTimeFormatString(span.Slice(0, span.IndexOf('\0')));
         }
 
-        private int GetFirstDayOfWeek()
-        {
-            return GetLocaleInfo(LocaleNumberData.FirstDayOfWeek);
-        }
+        private int GetFirstDayOfWeek() => GetLocaleInfo(LocaleNumberData.FirstDayOfWeek);
 
         private string[] GetTimeFormats()
         {
